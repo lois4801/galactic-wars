@@ -1,0 +1,7 @@
+{
+  "name": "galactic-wars-web-packager",
+  "private": true,
+  "description": "Turns game/Galactic_Wars_Elite_Fleet.sb3 into the single-file offline web build in web/index.html",
+  "scripts": { "build": "node pack.js" },
+  "dependencies": { "@turbowarp/packager": "3.14.0" }
+}

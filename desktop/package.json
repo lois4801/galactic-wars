@@ -1,0 +1,39 @@
+{
+  "name": "galactic-wars",
+  "productName": "Galactic Wars",
+  "version": "3.0.0",
+  "description": "Galactic Wars – Elite Fleet Evolution: a Scratch-built space shooter with 20 boss battles. Plays fully offline.",
+  "author": "Galactic Wars Team",
+  "license": "UNLICENSED",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:linux": "electron-builder --linux"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.galacticwars.elitefleet",
+    "productName": "Galactic Wars",
+    "copyright": "Galactic Wars Team",
+    "files": ["main.js", "game/**/*", "build/icon.png"],
+    "directories": { "output": "dist", "buildResources": "build" },
+    "artifactName": "Galactic-Wars-${version}-${os}-${arch}.${ext}",
+    "win": { "target": [{ "target": "nsis", "arch": ["x64"] }, { "target": "portable", "arch": ["x64"] }], "icon": "build/icon.png" },
+    "portable": { "artifactName": "Galactic-Wars-${version}-Portable.exe" },
+    "nsis": {
+      "oneClick": false, "perMachine": false, "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true, "createStartMenuShortcut": true, "shortcutName": "Galactic Wars",
+      "artifactName": "Galactic-Wars-Setup-${version}.exe"
+    },
+    "mac": { "target": [{ "target": "dmg", "arch": ["universal"] }, { "target": "zip", "arch": ["universal"] }],
+              "category": "public.app-category.games", "icon": "build/icon.png", "identity": "-" },
+    "dmg": { "artifactName": "Galactic-Wars-${version}-mac.dmg", "title": "Galactic Wars" },
+    "linux": { "target": ["AppImage"], "category": "Game", "icon": "build/icon.png" }
+  }
+}
