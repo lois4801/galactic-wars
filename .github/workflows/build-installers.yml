@@ -41,7 +41,16 @@ jobs:
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
         run: |
           if [ "$RUNNER_OS" = "Windows" ]; then npx electron-builder --win --publish never
-          elif [ "$RUNNER_OS" = "macOS" ]; then npx electron-builder --mac --publish never
+          elif [ "$RUNNER_OS" = "macOS" ]; then
+            # Build the universal .app, ad-hoc sign it, verify, then package DMG + ZIP ourselves
+            V=$(node -p "require('./package.json').version")
+            npx electron-builder --mac dir --universal --publish never
+            APP="dist/mac-universal/Galactic Wars.app"
+            codesign --force --deep --sign - "$APP"
+            codesign --verify --deep --strict --verbose=2 "$APP"
+            ditto -c -k --sequesterRsrc --keepParent "$APP" "dist/Galactic-Wars-$V-mac-universal.zip"
+            mkdir -p dmgroot && cp -R "$APP" dmgroot/ && ln -s /Applications dmgroot/Applications
+            hdiutil create -volname "Galactic Wars" -srcfolder dmgroot -ov -format UDZO "dist/Galactic-Wars-$V-mac.dmg"
           else npx electron-builder --linux --publish never; fi
 
       - name: Upload installers (Actions artifacts)

@@ -32,7 +32,7 @@
       "artifactName": "Galactic-Wars-Setup-${version}.exe"
     },
     "mac": { "target": [{ "target": "dmg", "arch": ["universal"] }, { "target": "zip", "arch": ["universal"] }],
-              "category": "public.app-category.games", "icon": "build/icon.png", "identity": "-" },
+              "category": "public.app-category.games", "icon": "build/icon.png", "identity": null },
     "dmg": { "artifactName": "Galactic-Wars-${version}-mac.dmg", "title": "Galactic Wars" },
     "linux": { "target": ["AppImage"], "category": "Game", "icon": "build/icon.png" }
   }
